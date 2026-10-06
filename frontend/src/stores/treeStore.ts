@@ -11,6 +11,8 @@ interface TreeState {
   addMany: (drafts: TreeRecordDraft[]) => Promise<TreeRecord[]>;
   update: (id: string, patch: Partial<TreeRecord>) => Promise<void>;
   remove: (id: string) => Promise<void>;
+  /** 整批合入后同步内存态（按 id 替换或新增） */
+  mergeItems: (records: TreeRecord[]) => void;
   byPlot: (plotId: string, round?: number) => TreeRecord[];
 }
 
@@ -45,6 +47,13 @@ export const useTreeStore = create<TreeState>((set, get) => ({
   async remove(id) {
     await db.trees.delete(id);
     set({ items: get().items.filter((it) => it.id !== id) });
+  },
+  mergeItems(records) {
+    set((state) => {
+      const map = new Map(state.items.map((it) => [it.id, it]));
+      records.forEach((r) => map.set(r.id, r));
+      return { items: Array.from(map.values()) };
+    });
   },
   byPlot(plotId, round) {
     return get()

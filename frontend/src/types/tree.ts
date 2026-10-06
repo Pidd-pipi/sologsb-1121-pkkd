@@ -38,6 +38,8 @@ export interface TreeRecord {
   /** 所属复查期次 */
   round: number;
   measuredAt: number;
+  /** 记录来源，如「检查回执」；旧数据无此字段 */
+  source?: string;
 }
 
 export type TreeRecordDraft = Omit<TreeRecord, 'id' | 'measuredAt'>;

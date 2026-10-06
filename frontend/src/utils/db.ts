@@ -3,10 +3,11 @@ import type { Plot } from '../types/plot';
 import type { TreeRecord } from '../types/tree';
 import type { RegenShrub } from '../types/regen';
 import type { RecheckDiff } from '../types/recheck';
+import type { ReceiptBatch } from '../types/receipt';
 import { newId } from './id';
 
 export const DB_NAME = 'gbforestplot';
-export const DB_VERSION = 2;
+export const DB_VERSION = 3;
 export const LS_VERSION_KEY = 'gbforestplot:db-version';
 
 class ForestPlotDB extends Dexie {
@@ -14,6 +15,7 @@ class ForestPlotDB extends Dexie {
   trees!: Table<TreeRecord, string>;
   regens!: Table<RegenShrub, string>;
   rechecks!: Table<RecheckDiff, string>;
+  receipts!: Table<ReceiptBatch, string>;
 
   constructor() {
     super(DB_NAME);
@@ -46,6 +48,13 @@ class ForestPlotDB extends Dexie {
             if (row.measuredAt === undefined) row.measuredAt = Date.now();
           });
       });
+    this.version(3).stores({
+      plots: 'id, plotNo, locality, forestType, surveyRound, locked, createdAt',
+      trees: 'id, plotId, treeNo, species, round, status, measuredAt, source',
+      regens: 'id, plotId, layer, species, round, heightCm',
+      rechecks: 'id, plotId, baseRound, targetRound, treeNo, generatedAt',
+      receipts: 'id, fingerprint, batchNo, importedAt',
+    });
   }
 }
 

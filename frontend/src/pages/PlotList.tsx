@@ -18,7 +18,7 @@ import {
   Tag,
   Typography,
 } from 'antd';
-import { PlusOutlined, ReloadOutlined } from '@ant-design/icons';
+import { PlusOutlined, ReloadOutlined, SwapOutlined } from '@ant-design/icons';
 import { usePlotStore } from '../stores/plotStore';
 import { useTreeStore } from '../stores/treeStore';
 import { useRegenStore } from '../stores/regenStore';
@@ -103,6 +103,9 @@ export default function PlotList() {
         <div style={{ flex: 1 }} />
         <Button type="primary" icon={<PlusOutlined />} onClick={() => setOpen(true)}>
           新建样地
+        </Button>
+        <Button icon={<SwapOutlined />} onClick={() => navigate('/reconcile')}>
+          回执对账合入
         </Button>
       </Space>
 
