@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #f5f7f6;
+}
+
+/* 样木表格：胸径异常行高亮 */
+.tree-row-abnormal > td {
+  background: #fff7e6 !important;
+}
+
+/* 复查比对表：生长量为负或缺测的行高亮 */
+.diff-row-abnormal > td {
+  background: #fff1f0 !important;
+}
+
+.app-content {
+  padding: 16px 20px 40px;
+}
