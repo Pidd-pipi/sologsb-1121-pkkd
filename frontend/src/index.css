@@ -14,6 +14,14 @@ body {
   background: #fff1f0 !important;
 }
 
+/* 回执对账：待人工选择 / 值不同的行 */
+.recon-row-pending > td {
+  background: #fff7e6 !important;
+}
+.recon-row-conflict > td {
+  background: #fffbe6 !important;
+}
+
 .app-content {
   padding: 16px 20px 40px;
 }

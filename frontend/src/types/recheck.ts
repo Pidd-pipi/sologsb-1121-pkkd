@@ -25,6 +25,8 @@ export interface RecheckDiff {
   /** 无法匹配时的缺失原因 */
   missingReason: string;
   generatedAt: number;
+  /** 基础样木被回执合入改动后，比对结果失效待重算 */
+  stale?: boolean;
 }
 
 export type RecheckDiffDraft = Omit<RecheckDiff, 'id' | 'generatedAt'>;

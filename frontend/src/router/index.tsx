@@ -11,6 +11,7 @@ import TreeEntry from '../pages/TreeEntry';
 import RegenView from '../pages/RegenView';
 import RecheckView from '../pages/RecheckView';
 import PlotSummary from '../pages/PlotSummary';
+import ReceiptImport from '../pages/ReceiptImport';
 
 const { Header, Content } = Layout;
 
@@ -29,12 +30,14 @@ function Shell() {
       { key: firstPlotId ? `/plots/${firstPlotId}/regen` : '/plots', label: '更新与灌木' },
       { key: firstPlotId ? `/plots/${firstPlotId}/recheck` : '/plots', label: '复查比对' },
       { key: firstPlotId ? `/summary/${firstPlotId}` : '/plots', label: '林分汇总' },
+      { key: '/receipts', label: '回执对账' },
     ],
     [firstPlotId],
   );
 
   const selected = useMemo(() => {
     const path = location.pathname;
+    if (path.startsWith('/receipts')) return '/receipts';
     if (path.startsWith('/summary')) return items[4].key;
     if (path.endsWith('/trees')) return items[1].key;
     if (path.endsWith('/regen')) return items[2].key;
@@ -69,6 +72,7 @@ function Shell() {
           <Route path="/plots/:id/regen" element={<RegenView />} />
           <Route path="/plots/:id/recheck" element={<RecheckView />} />
           <Route path="/summary/:plotId" element={<PlotSummary />} />
+          <Route path="/receipts" element={<ReceiptImport />} />
           <Route path="*" element={<Navigate to="/plots" replace />} />
         </Routes>
       </Content>
